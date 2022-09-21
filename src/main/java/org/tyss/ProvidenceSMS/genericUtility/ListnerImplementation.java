@@ -71,19 +71,19 @@ public class ListnerImplementation implements ITestListener{
 		
 	}
 
-	@Override
+	@Override//AM
 	public void onTestSkipped(ITestResult result) {
 		test.skip(result.getMethod().getMethodName());
 		test.fail(result.getThrowable());
 	}
 
 	
-	@Override
+	@Override//AM
 	public void onTestSuccess(ITestResult result) {
 		test.pass(result.getMethod().getMethodName()+"pass");
 		
 	}
-	@Override
+	@Override//AT
 	public void onFinish(ITestContext context) {
 	reports.flush();
 		
