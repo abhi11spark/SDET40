@@ -12,7 +12,7 @@ import org.tyss.ProvidenceSMS_ObjectRepository.PettyCashPage;
 import org.tyss.ProvidenceSMS_ObjectRepository.SubjectPage;
 
 public class BaseClass {
-	protected WebDriver driver;
+	protected  WebDriver driver;
 	protected WebDriverUtility webdriver;
 	protected PropertyFileUtility property;
 	protected JavaUtility javaUtility;
@@ -24,6 +24,7 @@ public class BaseClass {
 	protected PettyCashPage pettyCashPage;
 	protected SubjectPage subjectPage;
 	protected JavaScriptUtility jsu;
+	public static WebDriver sDriver;
 	
 	@BeforeClass
 	public void classSetup() {
@@ -44,7 +45,7 @@ public class BaseClass {
 		long timeouts = (Long) (javaUtility.convertStringToAnyData(time, DataType.LONG));
 		driver = webdriver.openBrowserAndApplication(browser, timeouts, path);
 		commonPage = new CommonPage(driver);
-		
+		sDriver=driver;
 	}
 
 	@BeforeMethod

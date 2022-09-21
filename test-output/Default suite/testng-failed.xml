@@ -3,11 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="org.sdet40.practice.MavenPracticeTest">
+      <class name="org.ProvidenceSms.EndToEnd.GradeTest">
         <methods>
-          <include name="Step1Test"/>
+          <include name="gradeTest"/>
+          <include name="methodSetup"/>
+          <include name="classSetup"/>
+          <include name="classTeardown"/>
         </methods>
-      </class> <!-- org.sdet40.practice.MavenPracticeTest -->
+      </class> <!-- org.ProvidenceSms.EndToEnd.GradeTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

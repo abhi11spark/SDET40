@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import org.tyss.ProvidenceSMS.genericUtility.BaseClass;
 
 public class GradeTest extends BaseClass {
-@Test
+@Test(retryAnalyzer= org.tyss.ProvidenceSMS.genericUtility.RetryAnalyser.class)
 	public void gradeTest() throws InterruptedException {
 
 		String adminUN = property.getDataFromPropertyFile("userName");
@@ -21,9 +21,10 @@ public class GradeTest extends BaseClass {
 		// Scripts
 		commonPage.loginAction(adminUN, adminPWD);
 		// Login Validation through welcome message
-		String message = webdriver.loginValidation();
+		String expected = "Welcome back!".trim();
+		String actual = webdriver.loginValidation();
 		// webdriver.verifyWebPage(message,"Welcome back!");
-		Assert.assertEquals(message, "Welcome back!");
+		Assert.assertEquals(actual, expected);
 
         // Click on GradeTAB
 		adminHomePage.clickAdminTab(webdriver, driver);

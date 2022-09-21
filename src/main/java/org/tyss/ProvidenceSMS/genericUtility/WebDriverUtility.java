@@ -33,7 +33,7 @@ public class WebDriverUtility {
 	 * @return
 	 */
 	public WebDriver launchBrowser(String browser) {
-		
+
 		switch (browser) {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
@@ -96,15 +96,19 @@ public class WebDriverUtility {
 		navigateToApplication(url);
 		return driver;
 	}
+
 	public String loginValidation() {
-		String message=driver.findElement(By.xpath("//h5[text()='Abhishek K H,']/descendant::span[text()=' Welcome back! ']")).getText();
+		String message = driver
+				.findElement(By.xpath("//h5[text()='Abhishek K H,']/descendant::span[text()=' Welcome back! ']"))
+				.getText();
 		return message;
 	}
+
 	public void verifyWebPage(String actual, String expected) {
 //		SoftAssert soft = new SoftAssert();
 //		soft.assertTrue(actual.equals(expected),"Login Successful");
 //		soft.assertAll();
-		Assert.assertTrue(actual.equals(expected),"Login Successfull");
+		Assert.assertTrue(actual.equals(expected), "Login Successfull");
 	}
 
 	/**
@@ -163,14 +167,15 @@ public class WebDriverUtility {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
+
 	/**
 	 * This method is used to convert dynamicPath from string to web element
+	 * 
 	 * @param dynamicPath
 	 * @param replaceData
 	 * @return
 	 */
-	public WebElement convertDynamicXpathIntoWebElement(String dynamicPath,String replaceData)
-	{
+	public WebElement convertDynamicXpathIntoWebElement(String dynamicPath, String replaceData) {
 		String requiredPath = String.format(dynamicPath, replaceData);
 		WebElement element = driver.findElement(By.xpath(requiredPath));
 		return element;
