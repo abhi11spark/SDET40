@@ -3,6 +3,8 @@ package org.tyss.ProvidenceSMS.genericUtility;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -184,6 +186,14 @@ public class WebDriverUtility {
 	/**
 	 * This method is used to close the application
 	 */
+	
+
+	public String getScreenshot(WebDriver sDriver) {
+		TakesScreenshot ts = (TakesScreenshot)driver;
+		String src = ts.getScreenshotAs(OutputType.BASE64);
+		return src;
+		
+	}
 	public void closeDriver() {
 		driver.close();
 	}

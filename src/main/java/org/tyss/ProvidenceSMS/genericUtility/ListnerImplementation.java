@@ -11,61 +11,81 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
 public class ListnerImplementation implements ITestListener{
-
-	@Override
-	public void onFinish(ITestContext context) {
-		// TODO Auto-generated method stub
+	private ExtentReports reports;
+	public static ExtentTest sTest;
+	private ExtentTest test;
 		
-	}
-
 	@Override
 	public void onStart(ITestContext context) {
-		// TODO Auto-generated method stub
+		ExtentSparkReporter spark = new ExtentSparkReporter("./extentReport/extentReport.html");
+		spark.config().setDocumentTitle("Document Title - ProvidenceSMS");
+		spark.config().setReportName("Report Name  ProvidenceSMS");
+		spark.config().setTheme(Theme.STANDARD);
+		
+		reports = new ExtentReports();
+		reports.attachReporter(spark);
+		reports.setSystemInfo("Author", "Abhishek K H");
+		reports.setSystemInfo("OS", "WINDOWS 10 PRO");
+		reports.setSystemInfo("Browser", "chrome");
 		
 	}
+	@Override
+	public void onTestStart(ITestResult result) {
+		test= reports.createTest(result.getMethod().getMethodName());
+		sTest=test;
+		
+	}
+
 
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		String testName = result.getMethod().getMethodName();
-		System.out.println(testName+"**Execute**");
-		
-		
-		TakesScreenshot eDriver = (TakesScreenshot)(BaseClass.sDriver);
-		File srcFile = eDriver.getScreenshotAs(OutputType.FILE);
-		try
-		{
-			FileUtils.copyFile(srcFile, new File("./screenshot/"+testName+".png"));
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
+		test.fail(result.getMethod().getMethodName()+"Fail");
+		new WebDriverUtility().getScreenshot(BaseClass.sDriver);
+//		String testName = result.getMethod().getMethodName();
+//		System.out.println(testName+"**Execute**");
+//		
+//		
+//		TakesScreenshot eDriver = (TakesScreenshot)(BaseClass.sDriver);
+//		File srcFile = eDriver.getScreenshotAs(OutputType.FILE);
+//		try
+//		{
+//			FileUtils.copyFile(srcFile, new File("./screenshot/"+testName+".png"));
+//		}
+//		catch(IOException e)
+//		{
+//			e.printStackTrace();
+//		}
 		
 		
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		// TODO Auto-generated method stub
-		
+		test.skip(result.getMethod().getMethodName());
+		test.fail(result.getThrowable());
 	}
 
-	@Override
-	public void onTestStart(ITestResult result) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		// TODO Auto-generated method stub
+		test.pass(result.getMethod().getMethodName()+"pass");
+		
+	}
+	@Override
+	public void onFinish(ITestContext context) {
+	reports.flush();
 		
 	}
 	
